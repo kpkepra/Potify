@@ -1,0 +1,16 @@
+..\..\output\sen0193.o: ..\..\User\sen0193.c
+..\..\output\sen0193.o: ..\..\User\sen0193.h
+..\..\output\sen0193.o: ..\..\Libraries\CMSIS\stm32f10x.h
+..\..\output\sen0193.o: ..\..\Libraries\CMSIS\core_cm3.h
+..\..\output\sen0193.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\sen0193.o: ..\..\Libraries\CMSIS\system_stm32f10x.h
+..\..\output\sen0193.o: ..\..\User\stm32f10x_conf.h
+..\..\output\sen0193.o: ..\..\Libraries\FWlib\inc\stm32f10x_dma.h
+..\..\output\sen0193.o: ..\..\Libraries\CMSIS\stm32f10x.h
+..\..\output\sen0193.o: ..\..\Libraries\FWlib\inc\stm32f10x_fsmc.h
+..\..\output\sen0193.o: ..\..\Libraries\FWlib\inc\stm32f10x_gpio.h
+..\..\output\sen0193.o: ..\..\Libraries\FWlib\inc\stm32f10x_rcc.h
+..\..\output\sen0193.o: ..\..\Libraries\FWlib\inc\stm32f10x_sdio.h
+..\..\output\sen0193.o: ..\..\Libraries\FWlib\inc\stm32f10x_usart.h
+..\..\output\sen0193.o: ..\..\Libraries\FWlib\inc\misc.h
+..\..\output\sen0193.o: ..\..\Libraries\FWlib\inc\stm32f10x_adc.h
