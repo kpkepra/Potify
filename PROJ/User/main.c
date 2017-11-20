@@ -1,4 +1,3 @@
-#include "stm32f10x.h"
 #include "stm32f10x_adc.h"
 #include "lcd.h"
 #include "dht22.h"
@@ -6,7 +5,9 @@
 #include "ldr.h"
 #include "delay.h"
 #include "uart.h"
+#include "sdcard.h"
 #include <stdio.h>
+#include "stm32f10x.h"
 
 
 /*------------------------------------------------------------
@@ -24,23 +25,17 @@ char hexHumidity[16];
 char hexMoisture[16];
 char hexLight[16];
 
-void manual_mode(const u8 byte) { //Manual Mode Function
-	if ((byte == ' ')) {
-		uart_tx(COM3, "Switched to manual mode\n");
-	}
-}
 
 int main(void)
 {
 	// INIT
-	uart_init(COM3, 115200);
-	uart_interrupt_init(COM3, &manual_mode);
+
 	
 	LCD_INIT();
 	SEN0193_Init();
 	//DHT22_Init();
 	LDR_Init();
-	ticks_init();
+
 	
   while (1) {
 		DHT22_Init();
