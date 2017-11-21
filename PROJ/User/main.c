@@ -4,14 +4,15 @@
 #include "dht22.h"
 #include "sen0193.h"
 #include "ldr.h"
-#include "delay.h"
-#include "uart.h"
+#include "usart.h"
 #include <stdio.h>
 
 
 /*------------------------------------------------------------
 PROJ Template
 -------------------------------------------------------------*/
+
+void Delayus(int duration);
 
 uint32_t response;
 uint16_t humidity, temperature;
@@ -24,23 +25,13 @@ char hexHumidity[16];
 char hexMoisture[16];
 char hexLight[16];
 
-void manual_mode(const u8 byte) { //Manual Mode Function
-	if ((byte == ' ')) {
-		uart_tx(COM3, "Switched to manual mode\n");
-	}
-}
-
 int main(void)
 {
+	/*
 	// INIT
-	uart_init(COM3, 115200);
-	uart_interrupt_init(COM3, &manual_mode);
-	
-	LCD_INIT();
 	SEN0193_Init();
 	//DHT22_Init();
 	LDR_Init();
-	ticks_init();
 	
   while (1) {
 		DHT22_Init();
@@ -67,6 +58,33 @@ int main(void)
 		LCD_DrawString(10, 70, hexLight);
 		Delay_ms(50);
   }
+	*/
+	uint16_t rxdata = 0;
+	USARTx_INIT();
+	LCD_INIT();
+	
+	while(1) {
+		Delayus(100000);
+		
+		if (USART_GetFlagStatus(USART1,USART_FLAG_RXNE) == SET) {
+			rxdata = USART_ReceiveData(USART1);
+		  if (rxdata == 0x30) {
+          GPIO_SetBits(GPIOB, GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_5);
+			}	
+			else if (rxdata == 'R') {
+		     GPIO_ResetBits(GPIOB, GPIO_Pin_5);		
+         GPIO_SetBits(GPIOB, GPIO_Pin_0 | GPIO_Pin_1);
+			}	
+			else if (rxdata == 'G') {
+		     GPIO_ResetBits(GPIOB, GPIO_Pin_0);		
+         GPIO_SetBits(GPIOB, GPIO_Pin_5 | GPIO_Pin_1);
+			}	
+			else if (rxdata == 'B') {
+		     GPIO_ResetBits(GPIOB, GPIO_Pin_1);		
+         GPIO_SetBits(GPIOB, GPIO_Pin_0 | GPIO_Pin_5);
+			}	
+		}
+	}
 }
 
 

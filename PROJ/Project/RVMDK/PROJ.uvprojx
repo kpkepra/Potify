@@ -619,6 +619,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\ldr.c</FilePath>
             </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\usart.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

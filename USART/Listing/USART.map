@@ -886,17 +886,17 @@ Memory Map of the image
     0x0800018c   0x00000004   Code   RO         3108    i.BusFault_Handler  stm32f10x_it.o
     0x08000190   0x00000002   Code   RO         3109    i.DebugMon_Handler  stm32f10x_it.o
     0x08000192   0x0000001c   Code   RO         3171    i.Delayus           main.o
-    0x080001ae   0x00000116   Code   RO         1268    i.GPIO_Init         stm32f10x_gpio.o
-    0x080002c4   0x00000012   Code   RO         1272    i.GPIO_ReadInputDataBit  stm32f10x_gpio.o
-    0x080002d6   0x00000004   Code   RO         1275    i.GPIO_ResetBits    stm32f10x_gpio.o
-    0x080002da   0x00000004   Code   RO         1276    i.GPIO_SetBits      stm32f10x_gpio.o
+    0x080001ae   0x00000116   Code   RO         1292    i.GPIO_Init         stm32f10x_gpio.o
+    0x080002c4   0x00000012   Code   RO         1296    i.GPIO_ReadInputDataBit  stm32f10x_gpio.o
+    0x080002d6   0x00000004   Code   RO         1299    i.GPIO_ResetBits    stm32f10x_gpio.o
+    0x080002da   0x00000004   Code   RO         1300    i.GPIO_SetBits      stm32f10x_gpio.o
     0x080002de   0x00000004   Code   RO         3110    i.HardFault_Handler  stm32f10x_it.o
     0x080002e2   0x00000004   Code   RO         3111    i.MemManage_Handler  stm32f10x_it.o
     0x080002e6   0x00000002   Code   RO         3112    i.NMI_Handler       stm32f10x_it.o
     0x080002e8   0x00000002   Code   RO         3113    i.PendSV_Handler    stm32f10x_it.o
     0x080002ea   0x00000002   PAD
-    0x080002ec   0x00000020   Code   RO         1695    i.RCC_APB2PeriphClockCmd  stm32f10x_rcc.o
-    0x0800030c   0x000000d4   Code   RO         1703    i.RCC_GetClocksFreq  stm32f10x_rcc.o
+    0x080002ec   0x00000020   Code   RO         1710    i.RCC_APB2PeriphClockCmd  stm32f10x_rcc.o
+    0x0800030c   0x000000d4   Code   RO         1718    i.RCC_GetClocksFreq  stm32f10x_rcc.o
     0x080003e0   0x00000002   Code   RO         3114    i.SVC_Handler       stm32f10x_it.o
     0x080003e2   0x00000008   Code   RO           24    i.SetSysClock       system_stm32f10x.o
     0x080003ea   0x00000002   PAD
@@ -904,12 +904,12 @@ Memory Map of the image
     0x080004cc   0x00000002   Code   RO         3115    i.SysTick_Handler   stm32f10x_it.o
     0x080004ce   0x00000002   PAD
     0x080004d0   0x00000060   Code   RO           27    i.SystemInit        system_stm32f10x.o
-    0x08000530   0x00000018   Code   RO         2875    i.USART_Cmd         stm32f10x_usart.o
-    0x08000548   0x0000001a   Code   RO         2878    i.USART_GetFlagStatus  stm32f10x_usart.o
+    0x08000530   0x00000018   Code   RO         2878    i.USART_Cmd         stm32f10x_usart.o
+    0x08000548   0x0000001a   Code   RO         2881    i.USART_GetFlagStatus  stm32f10x_usart.o
     0x08000562   0x00000002   PAD
-    0x08000564   0x000000d8   Code   RO         2882    i.USART_Init        stm32f10x_usart.o
-    0x0800063c   0x0000000a   Code   RO         2889    i.USART_ReceiveData  stm32f10x_usart.o
-    0x08000646   0x00000008   Code   RO         2892    i.USART_SendData    stm32f10x_usart.o
+    0x08000564   0x000000d8   Code   RO         2885    i.USART_Init        stm32f10x_usart.o
+    0x0800063c   0x0000000a   Code   RO         2892    i.USART_ReceiveData  stm32f10x_usart.o
+    0x08000646   0x00000008   Code   RO         2895    i.USART_SendData    stm32f10x_usart.o
     0x0800064e   0x00000004   Code   RO         3116    i.UsageFault_Handler  stm32f10x_it.o
     0x08000652   0x0000000e   Code   RO         3349    i.__scatterload_copy  mc_w.l(handlers.o)
     0x08000660   0x00000002   Code   RO         3350    i.__scatterload_null  mc_w.l(handlers.o)
@@ -922,7 +922,7 @@ Memory Map of the image
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00000014   Data   RW         1723    .data               stm32f10x_rcc.o
+    0x20000000   0x00000014   Data   RW         1738    .data               stm32f10x_rcc.o
     0x20000014   0x00000004   Data   RW         3174    .data               main.o
     0x20000018   0x00000010   Zero   RW         3173    .bss                main.o
     0x20000028   0x00000400   Zero   RW            1    STACK               startup_stm32f10x_hd.o
@@ -936,16 +936,16 @@ Image component sizes
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
          0          0          0          0          0       4500   core_cm3.o
-       388         30          0          4         16       1434   main.o
-        36          8        304          0       1024        848   startup_stm32f10x_hd.o
-       304          0          0          0          0       3576   stm32f10x_gpio.o
-        26          0          0          0          0       3718   stm32f10x_it.o
-       244         26          0         20          0       3793   stm32f10x_rcc.o
-       284          6          0          0          0       4468   stm32f10x_usart.o
-       328         28          0          0          0     228157   system_stm32f10x.o
+       388         30          0          4         16       1502   main.o
+        36          8        304          0       1024        872   startup_stm32f10x_hd.o
+       304          0          0          0          0       3692   stm32f10x_gpio.o
+        26          0          0          0          0       3922   stm32f10x_it.o
+       244         26          0         20          0       3889   stm32f10x_rcc.o
+       284          6          0          0          0       4608   stm32f10x_usart.o
+       328         28          0          0          0     228341   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-      1618         98        336         24       1040     250494   Object Totals
+      1618         98        336         24       1040     251326   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          8          0          0          0          0          0   (incl. Padding)
 
@@ -984,8 +984,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      1704        114        336         24       1040     249622   Grand Totals
-      1704        114        336         24       1040     249622   ELF Image Totals
+      1704        114        336         24       1040     250454   Grand Totals
+      1704        114        336         24       1040     250454   ELF Image Totals
       1704        114        336         24          0          0   ROM Totals
 
 ==============================================================================

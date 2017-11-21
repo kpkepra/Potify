@@ -1,9 +1,9 @@
 #include "sen0193.h"
 
-GPIO_InitTypeDef GPIO_InitStructure;
-ADC_InitTypeDef ADC_InitStructure;
-
 void SEN0193_Init(void) {
+	GPIO_InitTypeDef GPIO_InitStructure;
+	ADC_InitTypeDef ADC_InitStructure;
+	
 	// PC.4 - ANALOG
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
