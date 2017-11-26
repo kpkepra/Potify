@@ -1,6 +1,7 @@
 #include "stm32f10x.h"
 #include "sdcard.h"
-#include "usart.h"	
+#include "usart.h"
+#include "lcd.h"
 
 typedef enum {FAILED = 0, PASSED = !FAILED} TestStatus;
 
@@ -15,7 +16,7 @@ uint8_t Buffer_Block_Tx[BLOCK_SIZE], Buffer_Block_Rx[BLOCK_SIZE];
 uint8_t readbuff[BLOCK_SIZE];
 uint8_t Buffer_MultiBlock_Tx[MULTI_BUFFER_SIZE], Buffer_MultiBlock_Rx[MULTI_BUFFER_SIZE];
 volatile TestStatus EraseStatus = FAILED, TransferStatus1 = FAILED, TransferStatus2 = FAILED;
-SD_Error Status = SD_OK;
+SD_Error Status = SD_ERROR;
 extern SD_CardInfo SDCardInfo;	
 int i;
  
@@ -27,37 +28,55 @@ TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint32_t BufferLength
 TestStatus eBuffercmp(uint8_t* pBuffer, uint32_t BufferLength);
 
 char message1[100];
+char hexStatus[16];
+char hexType[16];
+char hexCapacity[16];
+char hexBlockSize[16];
+char hexRCA[16];
+char hexID[16];
 
+char tx[16];
+char rx[512];
+
+uint8_t* pBuffer;
 
 int main(void)
 {									   
-	NVIC_Configuration();
+	
+	//NVIC_Configuration();
 
-  USARTx_Config();	
+  //USARTx_Config();	
 
 	Status = SD_Init();
+	LCD_INIT();
 	
 	if(Status == SD_OK) 
 	{    
-		printf( "\r\n SD_Init OK \r\n" );		
+		LCD_DrawString(10, 10, "SD_Init OK");
 	}
 	else
 	{
-		printf("\r\n SD_Init Failed \r\n" );
-		printf("\r\n Status : %d \r\n",Status );
-	}			 
+		sprintf(hexStatus, "Status : %d", Status);
+		LCD_DrawString(10, 10, "SD_Init Failed");
+		LCD_DrawString(10, 20, hexStatus);
+	}			
 
-	printf( " \r\n CardType is : %d ", SDCardInfo.CardType );
-	printf( " \r\n CardCapacity is : %d ", SDCardInfo.CardCapacity );
-	printf( " \r\n CardBlockSize is : %d ", SDCardInfo.CardBlockSize );
-	printf( " \r\n RCA is : %d ", SDCardInfo.RCA);
-	printf( " \r\n ManufacturerID is : %d \r\n", SDCardInfo.SD_cid.ManufacturerID );
-	
-	SD_EraseTest();
+	sprintf(hexType, "Type : %d", SDCardInfo.CardType);
+	LCD_DrawString(10, 25, hexType);
+	sprintf(hexCapacity, "Capacity : %d", SDCardInfo.CardCapacity);
+	LCD_DrawString(10, 40, hexCapacity);
+	sprintf(hexBlockSize, "BlockSize : %d", SDCardInfo.CardBlockSize);
+	LCD_DrawString(10, 55, hexBlockSize);
+	sprintf(hexRCA, "RCA : %d", SDCardInfo.RCA);
+	LCD_DrawString(10, 70, hexRCA);
+	sprintf(hexID, "ID : %d", SDCardInfo.SD_cid.ManufacturerID);
+	LCD_DrawString(10, 85, hexID);
+
+	//SD_EraseTest();
 	
 	SD_SingleBlockTest(); 
 	
-	SD_MultiBlockTest();  
+	//SD_MultiBlockTest();  
 
 	while (1)
 	{}
@@ -84,10 +103,10 @@ void SD_EraseTest(void)
   }
   
   if(EraseStatus == PASSED)
-  	printf("\r\n Erase Passed");
+		LCD_DrawString(10, 10, "Erase Passed");
  
   else	  
-  	printf("\r\n Erase Failed" );  
+  	LCD_DrawString(10, 10, "Erase Failed");
 }
 
 void SD_SingleBlockTest(void)
@@ -118,13 +137,17 @@ void SD_SingleBlockTest(void)
   if (Status == SD_OK)
   {
     TransferStatus1 = Buffercmp(Buffer_Block_Tx, Buffer_Block_Rx, BLOCK_SIZE);	
-  }
-  
+  }	
+	
+	pBuffer = Buffer_Block_Rx;
+	sprintf(tx, "%d", *pBuffer);
+	LCD_DrawString(10, 120, tx);
+	
   if(TransferStatus1 == PASSED)
-    printf("\r\n One Block Passed" );
+    LCD_DrawString(10, 10, "One Block Passed");
  
   else  
-    printf("\r\n One Block Failed" );  
+    LCD_DrawString(10, 10, "One Block Failed");
 }
 
 void SD_MultiBlockTest(void)
@@ -157,10 +180,10 @@ void SD_MultiBlockTest(void)
   }
   
   if(TransferStatus2 == PASSED)	  
-  	printf("\r\n Multi-blocks Passed");
+    LCD_DrawString(10, 10, "Multi Block Passed");
 
   else 
-  	printf("\r\n Multi-blocks Failed");  
+  	LCD_DrawString(10, 10, "Multi Block Failed");
 
 }
 TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint32_t BufferLength)
@@ -187,7 +210,7 @@ void Fill_Buffer(uint8_t *pBuffer, uint32_t BufferLength, uint32_t Offset)
   /* Put in global buffer same values */
   for (index = 0; index < BufferLength; index++ )
   {
-    pBuffer[index] = index + Offset;
+    pBuffer[index] = 1;
   }
 }
 
