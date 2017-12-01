@@ -579,6 +579,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\usart.c</FilePath>
             </File>
+            <File>
+              <FileName>motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>ticks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\ticks.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

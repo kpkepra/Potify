@@ -561,7 +561,9 @@ void LCD_DrawDot(uint16_t usCOLUMN, uint16_t usPAGE, uint16_t usColor)
 	/*
 	 *  Task 2 – Implement the LCD_DrawDot to turn on a particular dot on the LCD.
 	 */
-
+	LCD_OpenWindow(usCOLUMN, usPAGE, 2, 2);
+	
+	LCD_FillColor(1, usColor);	
 		
 }
 

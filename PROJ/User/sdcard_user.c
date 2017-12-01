@@ -19,21 +19,21 @@ uint8_t* pBuffer;
 
 void SDCard_Init(void) {
 	Status = SD_Init();
-	if (Status == SD_OK) LCD_DrawString(10, 10, "SD_Init OK");
+	/*if (Status == SD_OK) LCD_DrawString(10, 10, "SD_Init OK");
 	else {
 		sprintf(hexStatus, "Status : %d", Status);
 		LCD_DrawString(10, 25, hexStatus);
-	}
+	}*/
 	
 	//sprintf(hexType, "Type : %d", SDCardInfo.CardType);
 	//sprintf(hexCapacity, "Capacity : %d", SDCardInfo.CardCapacity);
-	sprintf(hexBlockSize, "Block Size : %d", SDCardInfo.CardBlockSize);
+	//sprintf(hexBlockSize, "Block Size : %d", SDCardInfo.CardBlockSize);
 	//sprintf(hexRCA, "RCA : %d", SDCardInfo.RCA);
 	//sprintf(hexID, "ID : %d", SDCardInfo.SD_cid.ManufacturerID);
 	
 	//LCD_DrawString(10, 25, hexType);
 	//LCD_DrawString(10, 40, hexCapacity);
-	LCD_DrawString(10, 40, hexBlockSize);
+	//LCD_DrawString(10, 40, hexBlockSize);
 	//LCD_DrawString(10, 70, hexRCA);
 	//LCD_DrawString(10, 85, hexID);
 }
@@ -47,24 +47,26 @@ void SDCard_StoreData(uint32_t addr, const char * pStr) {
 	
 	 if (Status == SD_OK) {
     /* Write block of 512 bytes on address 0 */
-    Status = SD_WriteBlock(Buffer_Block_Tx, 0x200, BLOCK_SIZE);
+    Status = SD_WriteBlock(Buffer_Block_Tx, addr, BLOCK_SIZE);
 		
     /* Check if the Transfer is finished */
     Status = SD_WaitWriteOperation();	  
     while(SD_GetStatus() != SD_TRANSFER_OK); 
   }
 	 
+	//sprintf(buffer_tx, "%c", *pBuffer);
+	//LCD_DrawString(10, 120, buffer_tx);
+}
+
+uint8_t SDCard_ReadData(uint32_t addr) {
 	if (Status == SD_OK) {
     /* Read block of 512 bytes from address 0 */
-    Status = SD_ReadBlock(Buffer_Block_Rx, 0x000, BLOCK_SIZE);
+    Status = SD_ReadBlock(Buffer_Block_Rx, addr, BLOCK_SIZE);
     /* Check if the Transfer is finished */
     Status = SD_WaitReadOperation();
     while(SD_GetStatus() != SD_TRANSFER_OK);
   }
-	
-	pBuffer = Buffer_Block_Rx;
-	sprintf(buffer_tx, "%c", *pBuffer);
-	LCD_DrawString(10, 120, buffer_tx);
+	return *Buffer_Block_Rx;
 }
 
 void SD_SingleBlockTest(void)
